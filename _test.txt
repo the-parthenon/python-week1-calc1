@@ -1,0 +1,26 @@
+Since this is interactive, let's have a fake input handler:
+
+    >>> import sys
+    >>> def fake_input(prompt):
+    ...     sys.stdout.write(prompt)
+    ...     v = _inputs.pop(0)
+    ...     print(v)
+    ...     return v
+
+    >>> try:
+    ...     import __builtin__ as b    # Python 2
+    ... except ImportError:
+    ...     import builtins as b       # Python 3
+
+    >>> b.raw_input = b.input = fake_input
+
+Test calculator and arithmetic:
+
+    >>> _inputs = ["+ 1 2", "- 2 1", "q"]
+    >>> import calculator
+    > + 1 2
+    10
+    > - 2 1
+    None
+    > q
+    You will exit.
